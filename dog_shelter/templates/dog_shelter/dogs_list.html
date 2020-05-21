@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if perms.dog_shelter.can_change_dog %}
+        <button class="btn-lg btn-info"  ><a style="color: black" href="{% url 'dog_create' %}">Create Dog</a></button>
+    {% endif %}
+
+    {% if dogs %}
+        <ul>
+        <div class="container">
+            <div  class="row row-cols-4">
+                {% for dog in dogs %}
+                    <div onclick="redirectToDog({{ dog.pk }})" class="col-sm" style="display: flex">
+                    <div style="min-width: 200px; max-width: 200px">
+                        <img src="data:image;base64,{{ dog.image }}"
+                             style="max-height: 200px; max-width: 100%; min-height: 200px">
+                        <p style="font-size: 2.5em;">{{ dog.name }}</p>
+                    </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        </ul>
+    {% else %}
+        <p>There are no dogs yet</p>
+    {% endif %}
+
+{% endblock %}

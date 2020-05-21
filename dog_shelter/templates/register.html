@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error }}</strong>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+        <div style="max-width: 30%; min-width: 40%; margin: 5% auto; border: black 1px solid; padding: 5%; border-radius: 25px; box-shadow: 10px 10px 10px 10px #888888;">
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {% if field.auto_id == 'id_password' %}
+                        <input id="{{ field.auto_id }}" name="{{ field.name }}" type="password" class="form-control">
+                    {% else %}
+                        <input id="{{ field.auto_id }}" name="{{ field.name }}" class="form-control">
+                {% endif %}
+                </div>
+            {% endfor %}
+            <input class="btn btn-info" type="submit" value="Submit"/>
+        </div>
+    </form>
+{% endblock %}

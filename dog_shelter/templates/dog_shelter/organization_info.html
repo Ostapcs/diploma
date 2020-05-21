@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        {% if organization.logo %}
+            <img style="max-height: 200px; max-width: 300px" src="{{ organization.logo.url }}"/>
+        {% endif %}
+    </div>
+    <div>Name : {{ organization.name }}</div>
+    <div>Description : {{ organization.description }}</div>
+    <div>Address : {{ organization.address }}</div>
+    <div>Phone Number : {{ organization.phone_number }}</div>
+    <div>Email : {{ organization.email }}</div>
+    {% for i in organization_admin %}
+        <div>
+            <div>
+                <p>Name : {{ i.user.first_name }} {{ i.user.last_name }}</p>
+                <p>Bio : {{ i.bio }}</p>
+                <p>Email : {{ i.user.email }}</p>
+                <p>Phone : {{ i.personal_phone_number }}</p>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% if dogs %}
+        <ul>
+            <div class="container">
+                <div class="row row-cols-4">
+                    {% for dog in dogs %}
+                        <div onclick="redirectToDog({{ dog.pk }})" class="col-sm" style="display: flex">
+                            <div style="min-width: 200px; max-width: 200px">
+                                <img src="data:image;base64,{{ dog.image }}"
+                                     style="max-height: 200px; max-width: 100%; min-height: 200px">
+                                <p style="font-size: 2.5em;">{{ dog.name }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </ul>
+    {% else %}
+        <p>There are no dogs yet</p>
+    {% endif %}
+{% endblock %}

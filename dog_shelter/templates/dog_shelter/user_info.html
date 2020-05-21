@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="post" style="margin: 5% 0">
+        {% csrf_token %}
+        <div style="max-width: 50%; min-width: 50%; margin: auto">
+            {% for field in form %}
+                <div class="form-group">
+                    <label>{{ field.label_tag }}</label>
+                    <input class="form-control" name="{{ field.name }}" value="{{ field.value }}">
+                </div>
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            <input class="btn btn-info" type="submit" value="Submit"/>
+        </div>
+    </form>
+
+    {% if dogs %}
+        <ul>
+            <div class="container">
+                <div class="row row-cols-4">
+                    {% for dog in dogs %}
+                        <div onclick="redirectToDog({{ dog.pk }})" class="col-sm" style="display: flex">
+                            <div style="min-width: 200px; max-width: 200px">
+                                <img src="data:image;base64,{{ dog.image }}"
+                                     style="max-height: 200px; max-width: 100%; min-height: 200px">
+                                <p style="font-size: 2.5em;">{{ dog.name }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </ul>
+    {% else %}
+        <p>There are no dogs yet</p>
+    {% endif %}
+
+    {#    <script>#}
+    {#        function redirectToDog(dogPk) {#}
+    {#            window.location.href = '/shelter/dog/' + dogPk#}
+    {#        }#}
+    {#    </script>#}
+{% endblock %}

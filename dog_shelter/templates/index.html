@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Dog Shelter Home</h1>
+
+    <p>Welcome to <em>Dog Shelter</em></p>
+
+    <p>The dog shelter has the following record counts:</p>
+    <ul>
+        <li><strong>Dogs</strong> {{ dogs }}</li>
+        <li><strong>Organizations</strong> {{ organizations }}</li>
+    </ul>
+
+{% endblock %}

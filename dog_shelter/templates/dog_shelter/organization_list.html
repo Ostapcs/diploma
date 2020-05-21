@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Organizations</h1>
+
+    {% if organization_list %}
+        <ul>
+            <div style="display: flex" class="row row-cols-4">
+                {% for org in organization_list %}
+                    <div onclick="redirectToOrganization({{ org.pk }})" class="col-sm" style="display: flex">
+                        <div>
+                            {% if org.logo %}
+                            <img src="{{ org.logo.url }}"
+                                 style="max-height: 200px; max-width: 100%; min-height: 200px">
+                            {% else %}
+                                <img style="max-height: 200px; max-width: 100%; min-height: 200px">
+                            {% endif %}
+                            <p style="font-size: 2.5em;">{{ org.name }}</p>
+                        </div>
+                    </div>
+
+
+                {% endfor %}
+            </div>
+
+        </ul>
+    {% else %}
+        <p>There are no organization yet</p>
+    {% endif %}
+
+    <script>
+        function redirectToOrganization(dogPk) {
+            window.location.href = '/shelter/organization/' + dogPk
+        }
+    </script>
+{% endblock %}

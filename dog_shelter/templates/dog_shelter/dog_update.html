@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form enctype="multipart/form-data" action="" method="post">
+        {% csrf_token %}
+        <div style="max-width: 60%; min-width: 40%; margin: 5% auto; border: black 1px solid; padding: 5%; border-radius: 25px; box-shadow: 10px 10px 10px 10px #888888;">
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <input type="submit" class="btn btn-info"  value="Submit"/>
+        </div>
+
+    </form>
+{% endblock %}
